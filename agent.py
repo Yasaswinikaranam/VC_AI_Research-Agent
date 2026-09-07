@@ -20,14 +20,30 @@ CLAUDE_MODEL = os.getenv(
 )
 
 if not ANTHROPIC_API_KEY:
-    raise ValueError(
-        "ANTHROPIC_API_KEY is missing from your .env file."
-    )
+    ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
+
+if not ANTHROPIC_API_KEY:
+    try:
+        import streamlit as st
+        ANTHROPIC_API_KEY = st.secrets["ANTHROPIC_API_KEY"]
+    except Exception:
+        pass
+
+if not ANTHROPIC_API_KEY:
+    raise ValueError("ANTHROPIC_API_KEY is not configured.")
 
 if not TAVILY_API_KEY:
-    raise ValueError(
-        "TAVILY_API_KEY is missing from your .env file."
-    )
+    TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
+
+if not TAVILY_API_KEY:
+    try:
+        import streamlit as st
+        TAVILY_API_KEY = st.secrets["TAVILY_API_KEY"]
+    except Exception:
+        pass
+
+if not TAVILY_API_KEY:
+    raise ValueError("TAVILY_API_KEY is not configured.")
 
 
 # ============================================================
